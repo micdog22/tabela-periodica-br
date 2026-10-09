@@ -1,0 +1,11 @@
+{
+  "name": "tabela-periodica-br",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tabela periódica interativa em português com os 118 elementos, configurações eletrônicas, busca sem acentos e quiz",
+  "type": "module",
+  "scripts": { "test": "node --test" },
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/micdog22/tabela-periodica-br.git" },
+  "homepage": "https://micdog22.github.io/tabela-periodica-br/"
+}

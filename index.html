@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tabela Periódica: interativa, em português, com os 118 elementos</title>
+  <meta name="description" content="Tabela periódica interativa em português com os 118 elementos: massa atômica da IUPAC, categorias, estado físico, configuração eletrônica com as exceções reais, busca sem acentos, filtros e quiz do símbolo.">
+  <meta name="theme-color" content="#0f766e">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./src/app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <h1>Tabela Periódica</h1>
+    <p class="lead">Os 118 elementos em português, com massa atômica, categoria, estado físico e configuração eletrônica, inclusive as exceções que caem na prova.</p>
+  </header>
+
+  <main>
+    <section class="card controls" aria-labelledby="controls-title">
+      <h2 id="controls-title" class="sr-only">Busca e filtros</h2>
+      <div class="control-grid">
+        <div class="field search-field">
+          <label for="search">Buscar por nome, símbolo ou número</label>
+          <input id="search" type="search" autocomplete="off" spellcheck="false" placeholder="Ex.: nitrogenio, Fe, 79" aria-controls="results" aria-describedby="search-hint">
+          <p id="search-hint" class="hint">Acentos e maiúsculas não importam. Enter abre o primeiro resultado.</p>
+          <ul id="results" class="results" aria-label="Resultados da busca"></ul>
+        </div>
+        <div class="field">
+          <label for="category">Categoria</label>
+          <select id="category"></select>
+        </div>
+        <div class="field">
+          <label for="state">Estado a 25 °C</label>
+          <select id="state"></select>
+        </div>
+        <div class="field clear-field">
+          <button type="button" class="btn secondary" id="clear">Limpar</button>
+        </div>
+      </div>
+      <p id="filter-status" class="filter-status" aria-live="polite"></p>
+    </section>
+
+    <section class="card table-card" aria-labelledby="table-title">
+      <h2 id="table-title" class="sr-only">Tabela</h2>
+      <ul id="legend" class="legend" aria-label="Categorias (clique para filtrar)"></ul>
+      <div class="table-scroll">
+        <div id="table" class="ptable" role="group" aria-label="Tabela periódica. Use as setas para andar entre os elementos." aria-describedby="table-hint"></div>
+      </div>
+      <p id="table-hint" class="hint">Clique em um elemento (ou use as setas e Enter) para ver os detalhes. Em telas pequenas, arraste a tabela para os lados.</p>
+    </section>
+
+    <section class="card detail" aria-labelledby="detail-title">
+      <h2 id="detail-title" class="sr-only">Elemento selecionado</h2>
+      <div id="detail" aria-live="polite"></div>
+    </section>
+
+    <section class="card quiz" aria-labelledby="quiz-title">
+      <h2 id="quiz-title">Quiz do símbolo</h2>
+      <div class="quiz-options">
+        <div class="field">
+          <label for="quiz-mode">Pergunta</label>
+          <select id="quiz-mode">
+            <option value="name">Mostra o nome, você escolhe o símbolo</option>
+            <option value="symbol">Mostra o símbolo, você escolhe o nome</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="quiz-range">Elementos</label>
+          <select id="quiz-range">
+            <option value="20">Do 1 ao 20</option>
+            <option value="36" selected>Do 1 ao 36</option>
+            <option value="54">Do 1 ao 54</option>
+            <option value="86">Do 1 ao 86</option>
+            <option value="118">Todos os 118</option>
+          </select>
+        </div>
+        <div class="field">
+          <button type="button" class="btn" id="quiz-start">Começar</button>
+        </div>
+      </div>
+      <div id="quiz-box" class="quiz-box" hidden>
+        <p id="quiz-question" class="quiz-question"></p>
+        <div id="quiz-answers" class="quiz-answers" role="group" aria-label="Alternativas"></div>
+        <p id="quiz-feedback" class="quiz-feedback" aria-live="polite"></p>
+        <button type="button" class="btn secondary" id="quiz-next" hidden>Próxima pergunta</button>
+      </div>
+      <dl class="score">
+        <div><dt>Acertos</dt><dd id="score-hits">0</dd></div>
+        <div><dt>Erros</dt><dd id="score-misses">0</dd></div>
+        <div><dt>Sequência</dt><dd id="score-streak">0</dd></div>
+        <div><dt>Recorde</dt><dd id="score-best">0</dd></div>
+      </dl>
+    </section>
+
+    <section class="card help" aria-labelledby="help-title">
+      <h2 id="help-title">Sobre os dados</h2>
+      <ul>
+        <li><strong>Massa atômica:</strong> peso atômico padrão abreviado da IUPAC (CIAAW, 2024), com cinco algarismos significativos quando a variação natural permite (por isso o hidrogênio aparece como 1,0080 e o lítio como 6,94). Elementos sem peso padrão mostram, entre colchetes, o número de massa do isótopo mais estável conhecido (avaliação NUBASE2020).</li>
+        <li><strong>Configuração eletrônica:</strong> estado fundamental do átomo neutro isolado. As exceções à regra de Madelung (o diagrama de Linus Pauling) são indicadas no detalhe de cada elemento. Do rutherfórdio em diante, as configurações são previsões teóricas.</li>
+        <li><strong>Estado físico:</strong> a 25 °C e 1 atm. Do férmio em diante só foram produzidos alguns átomos, então o estado não foi determinado.</li>
+        <li><strong>Categorias:</strong> o polônio aparece como semimetal, como na maioria dos livros brasileiros; o astato e o tenesso ficam com os halogênios e o oganessônio com os gases nobres, pela posição na tabela.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Tudo roda no seu navegador. Código aberto no <a href="https://github.com/micdog22/tabela-periodica-br">GitHub</a> · Licença MIT</p>
+  </footer>
+</body>
+</html>
